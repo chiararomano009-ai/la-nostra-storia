@@ -253,19 +253,13 @@
       .moment-image {
         overflow: hidden;
         min-height: 360px;
-        height: clamp(360px, 55vh, 540px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 250, 247, 0.92);
       }
 
       .moment-image img {
         width: 100%;
         height: 100%;
-        min-height: 0;
-        object-fit: contain;
-        object-position: center;
+        min-height: 360px;
+        object-fit: cover;
       }
 
       .timeline-controls {
@@ -586,19 +580,11 @@
           padding: 22px;
         }
 
-        .timeline-center-photo img {
+        .timeline-center-photo img,
+        .moment-image,
+        .moment-image img {
           min-height: 320px;
           height: 320px;
-        }
-
-        .moment-image {
-          min-height: 390px;
-          height: 390px;
-        }
-
-        .moment-image img {
-          min-height: 0;
-          height: 100%;
         }
 
         .memory-photo-frame {
@@ -611,6 +597,62 @@
           max-height: calc(74vh - 16px);
         }
       }
+
+
+      /* FIX DEFINITIVO FOTO TIMELINE - MOBILE E DESKTOP
+         Le immagini della sezione 1-16 non vengono più tagliate. */
+      .timeline-center-photo {
+        overflow: visible !important;
+      }
+
+      .timeline-center-photo img {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        object-fit: contain !important;
+        object-position: center !important;
+        display: block !important;
+        border-radius: 24px !important;
+      }
+
+      .moment-image {
+        overflow: visible !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        padding: 10px !important;
+        background: rgba(255, 250, 247, 0.92) !important;
+      }
+
+      .moment-image img {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        max-height: none !important;
+        object-fit: contain !important;
+        object-position: center !important;
+        display: block !important;
+        border-radius: 16px !important;
+      }
+
+      @media (max-width: 640px) {
+        .timeline-center-photo img,
+        .moment-image,
+        .moment-image img {
+          height: auto !important;
+          min-height: 0 !important;
+          max-height: none !important;
+        }
+
+        .moment-image {
+          padding: 8px !important;
+        }
+      }
+
     </style>
   </head>
   <body>
