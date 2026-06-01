@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>La nostra storia</title>
+    <style>
+      :root {
+        --bg: #fffaf7;
+        --bg-soft: #f8efea;
+        --card: rgba(255, 255, 255, 0.78);
+        --text: #3f2d2a;
+        --muted: #7a6764;
+        --accent: #d88f8f;
+        --accent-dark: #bf7373;
+        --shadow: 0 18px 40px rgba(94, 58, 58, 0.12);
+        --radius: 24px;
+        --radius-sm: 16px;
+        --max: 1100px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background:
+          radial-gradient(circle at top left, rgba(255, 219, 219, 0.55), transparent 35%),
+          radial-gradient(circle at top right, rgba(255, 240, 218, 0.65), transparent 30%),
+          linear-gradient(180deg, #fffaf7 0%, #fff6f2 100%);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .container {
+        width: min(var(--max), calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .section {
+        padding: 88px 0;
+        position: relative;
+      }
+
+      .section-title {
+        font-size: clamp(2rem, 4vw, 3rem);
+        margin: 0 0 12px;
+        letter-spacing: -0.03em;
+      }
+
+      .section-subtitle {
+        margin: 0 0 40px;
+        color: var(--muted);
+        font-size: 1.05rem;
+        line-height: 1.7;
+        max-width: 760px;
+      }
+
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 40px 0;
+      }
+
+      .hero-card {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 32px;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.64);
+        backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.65);
+        border-radius: 32px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        padding: 28px;
+      }
+
+      .hero-photo {
+        position: relative;
+        min-height: 480px;
+        border-radius: 28px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #f3dada, #f8efe7);
+      }
+
+      .hero-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-copy {
+        padding: 12px;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        font-size: 0.82rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent-dark);
+        margin-bottom: 16px;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.6rem, 6vw, 5rem);
+        line-height: 0.95;
+        margin: 0 0 18px;
+        letter-spacing: -0.05em;
+      }
+
+      .hero p {
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.8;
+        margin: 0 0 26px;
+      }
+
+      .button-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .btn {
+        border: 0;
+        background: var(--accent);
+        color: white;
+        padding: 14px 22px;
+        border-radius: 999px;
+        font-size: 0.98rem;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 12px 24px rgba(216, 143, 143, 0.25);
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        background: var(--accent-dark);
+      }
+
+      .btn.secondary {
+        background: rgba(255,255,255,0.78);
+        color: var(--text);
+        border: 1px solid rgba(122, 103, 100, 0.16);
+        box-shadow: none;
+      }
+
+      .floating-note {
+        margin-top: 18px;
+        font-size: 0.94rem;
+        color: var(--muted);
+      }
+
+      .timeline-center-photo {
+        margin: 20px auto 52px;
+        max-width: 760px;
+        background: var(--card);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255,255,255,0.66);
+        border-radius: 30px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .timeline-center-photo img {
+        width: 100%;
+        height: 520px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .timeline {
+        position: relative;
+        max-width: 950px;
+        margin: 0 auto;
+      }
+
+      .timeline::before {
+        display: none;
+      }
+
+      .moment {
+        display: none;
+        grid-template-columns: 1fr 1fr;
+        gap: 34px;
+        align-items: center;
+        margin: 0 0 28px;
+        animation: fadeIn 0.7s ease;
+      }
+
+      .moment.active {
+        display: grid;
+      }
+
+      .moment-dot {
+        display: none;
+      }
+
+      .moment-card,
+      .moment-image,
+      .love-panel,
+      .surprise-box,
+      .final-card,
+      .music-card {
+        background: var(--card);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255,255,255,0.66);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+      }
+
+      .moment-card {
+        padding: 28px;
+      }
+
+      .moment-date {
+        display: inline-block;
+        font-size: 0.9rem;
+        color: var(--accent-dark);
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+
+      .moment-card h3 {
+        margin: 0 0 12px;
+        font-size: 1.5rem;
+      }
+
+      .moment-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .moment-image {
+        overflow: hidden;
+        min-height: 360px;
+      }
+
+      .moment-image img {
+        width: 100%;
+        height: 100%;
+        min-height: 360px;
+        object-fit: cover;
+      }
+
+      .timeline-controls {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 32px;
+        flex-wrap: wrap;
+      }
+
+      .next-button,
+      .back-button {
+        border: 0;
+        padding: 14px 24px;
+        border-radius: 999px;
+        font-size: 0.98rem;
+        cursor: pointer;
+        transition: transform 0.2s ease, background 0.2s ease, opacity 0.2s ease;
+      }
+
+      .next-button {
+        background: var(--accent);
+        color: white;
+        box-shadow: 0 12px 24px rgba(216, 143, 143, 0.25);
+      }
+
+      .back-button {
+        background: rgba(255,255,255,0.78);
+        color: var(--text);
+        border: 1px solid rgba(122, 103, 100, 0.16);
+      }
+
+      .next-button:hover,
+      .back-button:hover {
+        transform: translateY(-2px);
+      }
+
+      .back-button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .progress-text {
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .love-layout {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .love-buttons {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .love-btn {
+        border: 0;
+        padding: 16px 14px;
+        border-radius: 18px;
+        background: rgba(255,255,255,0.84);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        border: 1px solid rgba(122, 103, 100, 0.09);
+      }
+
+      .love-btn:hover,
+      .love-btn.active {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(94, 58, 58, 0.08);
+        border-color: rgba(216, 143, 143, 0.34);
+      }
+
+      .love-panel {
+        padding: 32px;
+        min-height: 280px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .love-panel .small {
+        color: var(--accent-dark);
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        font-size: 0.78rem;
+        margin-bottom: 14px;
+      }
+
+      .love-panel h3 {
+        margin: 0 0 16px;
+        font-size: 1.8rem;
+      }
+
+      .love-panel p {
+        margin: 0;
+        line-height: 1.9;
+        color: var(--muted);
+        font-size: 1.04rem;
+      }
+
+      .surprise-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+
+      .surprise-box {
+        padding: 30px;
+      }
+
+      .surprise-box h3 {
+        margin: 0 0 12px;
+        font-size: 1.8rem;
+      }
+
+      .surprise-box p {
+        margin: 0 0 22px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .memory-output {
+        background: rgba(255,255,255,0.86);
+        border-radius: 20px;
+        padding: 20px;
+        border: 1px solid rgba(122, 103, 100, 0.08);
+        min-height: 180px;
+      }
+
+      .photo-random-output {
+        min-height: auto;
+        overflow: visible;
+      }
+
+      .memory-photo-frame {
+        width: 100%;
+        min-height: clamp(340px, 62vh, 720px);
+        max-height: 82vh;
+        margin-top: 16px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 250, 247, 0.92);
+        border: 1px solid rgba(122, 103, 100, 0.08);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+
+      .memory-output .tag {
+        display: inline-block;
+        font-size: 0.76rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent-dark);
+        margin-bottom: 12px;
+      }
+
+      .memory-output h4 {
+        margin: 0 0 10px;
+        font-size: 1.25rem;
+      }
+
+      .memory-output p {
+        margin: 0 0 12px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .photo-random-output p {
+        white-space: pre-line;
+      }
+
+      .memory-output .memory-image {
+        width: 100%;
+        height: 100%;
+        max-height: calc(82vh - 20px);
+        object-fit: contain;
+        object-position: center;
+        border-radius: 16px;
+      }
+
+      .music-card {
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .music-card h3 {
+        margin: 0 0 12px;
+        font-size: 1.4rem;
+      }
+
+      .music-card p {
+        margin: 0 0 20px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .final-card {
+        text-align: center;
+        padding: 52px 28px;
+      }
+
+      .final-card h2 {
+        margin: 0 0 16px;
+        font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+      }
+
+      .final-card p {
+        margin: 0 auto 24px;
+        max-width: 720px;
+        color: var(--muted);
+        line-height: 1.9;
+        font-size: 1.06rem;
+      }
+
+
+      .final-video-frame {
+        width: min(820px, 100%);
+        margin: 28px auto 26px;
+        padding: 10px;
+        background: rgba(255, 250, 247, 0.92);
+        border: 1px solid rgba(122, 103, 100, 0.08);
+        border-radius: 24px;
+        box-shadow: 0 14px 30px rgba(94, 58, 58, 0.10);
+        overflow: hidden;
+      }
+
+      .final-video-frame video {
+        width: 100%;
+        max-height: 70vh;
+        display: block;
+        border-radius: 18px;
+        object-fit: contain;
+        background: #000;
+      }
+
+      .final-heart {
+        font-size: 2rem;
+        display: inline-block;
+        animation: pulse 2.2s infinite;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.12); }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 920px) {
+        .hero-card,
+        .moment,
+        .love-layout,
+        .surprise-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-photo {
+          min-height: 360px;
+        }
+
+        .timeline-center-photo img {
+          height: 420px;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .section {
+          padding: 72px 0;
+        }
+
+        .hero-card {
+          padding: 18px;
+        }
+
+        .love-buttons {
+          grid-template-columns: 1fr;
+        }
+
+        .moment-card,
+        .surprise-box,
+        .love-panel,
+        .music-card,
+        .final-card {
+          padding: 22px;
+        }
+
+        .timeline-center-photo img,
+        .moment-image,
+        .moment-image img {
+          min-height: 320px;
+          height: 320px;
+        }
+
+        .memory-photo-frame {
+          min-height: 360px;
+          max-height: 74vh;
+          padding: 8px;
+        }
+
+        .memory-output .memory-image {
+          max-height: calc(74vh - 16px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="hero section">
+      <div class="container">
+        <div class="hero-card reveal">
+          <div class="hero-photo">
+            <img src="IMG_01.JPG" alt="La nostra foto" />
+          </div>
+          <div class="hero-copy">
+            <span class="eyebrow">La nostra storia</span>
+            <h1>Piccola mia,<br />Buon Primo Anniversario</h1>
+            <p>
+              Piccola mia, ci credi? È già passato un anno.
+              Un anno fatto di messaggi, incontri, risate, tramonti, baci, litigate,
+              abbracci, paure, promesse e momenti che, piano piano, ci hanno portate
+              fino a qui. Oggi non voglio solo dirti “buon anniversario”. Voglio
+              farti rivivere tutto quello che siamo state, tutto quello che abbiamo
+              costruito e tutto quello che, spero, continueremo a essere. Ho voluto
+              raccogliere qui alcuni dei nostri inizi, delle nostre prime volte, dei
+              dettagli che magari il tempo prova a sfumare ma che io continuo a
+              portarmi dentro. Perché un anno con te non è stato semplicemente un anno:
+              è stato imparare cosa significa amare davvero. È stato scoprirci piano,
+              viverti, perdermi nei tuoi occhi, ridere con te, stringerti nelle tempeste
+              e ritrovare la pace tra le tue braccia. E in ogni momento, anche nei più
+              difficili, ho capito una cosa sola: che il mio cuore ha scelto te.
+            </p>
+            <div class="button-row">
+              <button class="btn" onclick="document.getElementById('timeline').scrollIntoView({ behavior: 'smooth' })">Inizia</button>
+              <button class="btn secondary" onclick="document.getElementById('finale').scrollIntoView({ behavior: 'smooth' })">Vai al finale</button>
+            </div>
+            <div class="floating-note">Sei la mia Bimba. Ti amo </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="timeline" class="section">
+        <div class="container">
+          <h2 class="section-title reveal">La nostra Storia</h2>
+          <p class="section-subtitle reveal">
+            Questa non è solo una raccolta di ricordi. È il modo in cui il nostro amore ha
+            imparato a crescere, tra attimi semplici e momenti impossibili da dimenticare.
+            Ogni momento ci ha lasciato qualcosa addosso: una risata improvvisa, un nodo
+            allo stomaco, un’emozione difficile da spiegare, una certezza nata piano, quella 
+            sensazione dolcissima, sempre più chiara, di capire che non eri solo una persona 
+            speciale, tra un sorriso e un abbraccio, tu sei diventata il posto in cui il mio cuore ha smesso di cercare:
+            sei diventata casa.
+          </p>
+
+          <div class="timeline-center-photo reveal">
+            <img src="IMG_03.JPG" alt="Un nostro momento speciale" />
+          </div>
+
+          <div class="timeline">
+            <article class="moment active">
+              <div class="moment-card">
+                <span class="moment-date">01 · L’inizio di tutto</span>
+                <h3>Ti ricordi ogni piccolo momento che ci ha portate fin qui?</h3>
+                <p>
+                  A volte ci penso davvero: a quanti piccoli istanti, quasi invisibili, ci hanno portate oggi a festeggiare il nostro primo anno insieme.
+		  Perché noi non siamo iniziate all’improvviso. Siamo iniziate piano, quasi in silenzio, senza nemmeno accorgercene. Da gennaio 2025, 
+		  quando tu hai iniziato a seguirmi su Instagram e io ho ricambiato, qualcosa aveva già cominciato a muoversi. E da lì, per mesi, ci siamo 
+		  guardate da lontano: un like a una storia, poi un altro, poi un altro ancora. Quei like che sembravano piccoli gesti, ma in realtà 
+		  dicevano molto più di quanto avessimo il coraggio di scrivere. Entrambe pensavamo la stessa cosa, senza saperlo: “Mi piace. Ha le vibes 
+		  giuste.” Eppure nessuna delle due trovava il coraggio di fare il primo passo. È strano pensare che mentre la vita andava avanti 
+		  normalmente, noi ci stavamo già scegliendo un po’, senza dircelo. Dettaglio dopo dettaglio, storia dopo storia, emozione dopo emozione. 
+		  Fino a quel momento in cui tutto ha smesso di restare sospeso ed è iniziato davvero. Fino a diventare noi.
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_02.JPG" alt="L'inizio di tutto" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">02 · Il primo messaggio</span>
+                <h3>Te lo ricordi il primo messaggio?</h3>
+                <p>Il 9 maggio.
+		Dopo mesi passati a guardarci da lontano finalmente una delle due ha fatto quel passo.
+		E sei stata tu.
+		Fa quasi sorridere pensare che tutto abbia iniziato a prendere forma da lì, da poche parole scritte su Instagram. 
+		Però oggi, se ci ripenso, mi sembra impossibile considerarlo solo un messaggio, perché dentro quel primo messaggio c’era tutta l’attesa di quei mesi. 
+		Tutte le volte in cui forse ci siamo pensate senza dircelo. E invece poi tu mi hai scritto. E da lì qualcosa si è acceso. Forse in quel momento non 
+		potevamo immaginarlo davvero, ma oggi lo so: quel messaggio non è stato solo l’inizio di una conversazione. 
+		È stato il primo passo verso una delle cose più belle della mia vita.
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_04.JPG" alt="Il primo messaggio" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">03 · La prima volta che ci siamo viste</span>
+                <h3>Uno spritz, una Red Bull sul tuo telo e il mio lato “maldestro” già in bella mostra.</h3>
+                <p>
+                  Era la nostra prima uscita e tu ti convincevi che potesse nascere un’amicizia (sei falsa Simona!). C’era già un’intesa che andava già ben oltre 
+		  le parole che provavi a usare per proteggerti.
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_05.JPG" alt="La prima volta insieme" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">04 · Il nostro primo tramonto</span>
+                <h3>Ti ricordi il nostro primo tramonto?</h3>
+                <p>
+                  Era il nostro secondo appuntamento, ma sembrava già qualcosa di molto più grande.
+                  C’era tanto vino, e noi ci desideravamo già da matti... e in qualche modo quel giorno
+                  è stato uno di quelli in cui tutto ha iniziato a scoprirsi davvero.
+		  Ed è cosi che certi tramonti ti restano scritti addosso. 
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_06.JPG" alt="Primo tramonto" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">05 · Il ciuffo spostato</span>
+                <h3>Quante volte ti ho spostato quel ciuffo dal viso?</h3>
+                <p>
+                  Ma il nostro primo vero momento è stato proprio quando Il tempo si è fermato in un gesto: quando ti ho spostato quel ciuffo di capelli. Quello è stato il 
+		  “nostro” momento, in quell'istante ci siamo 'viste' davvero: 
+
+			Eravamo lì,
+			sulla spiaggia che sussurrava storie al tramonto,
+			con un calice tra le dita
+			e due cuori che non sapevano ancora
+			di essere già perduti.
+
+			Tu parlavi, ridevi, brillavi
+			con quei tuoi occhi,
+			che sembrano conoscere i segreti del cielo,
+			fatti per incantare.
+
+			Lei, ombra e fuoco,
+			con lo sguardo che accende e disarma,
+			occhi profondi 
+			mistero e casa nello stesso sguardo.
+
+			Poi, quel gesto.
+			La tua mano ha sfiorato piano
+			una ciocca ribelle sul suo viso,
+			come se stessi chiedendo il permesso
+			di avvicinarti al suo mondo.
+
+			E lei ti ha guardata.
+			Dio, come ti ha guardata.
+			Con quegli occhi profondi
+			che in un solo istante
+			ti hanno sussurrato:
+			“Sì, anch’io.”
+
+			Non c’era ancora stato un bacio,
+			ma l’amore era già lì.
+			In quella carezza leggera,
+			in quel silenzio colmo di promesse,
+			in quel momento perfetto
+			in cui due anime si sono riconosciute
+			senza dirsi una parola.
+
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_07.JPG" alt="Il ciuffo" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">06 · Confidenze troppo vere</span>
+                <h3>Quando ci siamo raccontate cose mai dette a nessuno</h3>
+                <p>
+                  Ci siamo raccontate cose mai dette a nessuno, ho capito che il tempo è un concetto relativo. Al secondo appuntamento tutto questo sembra assurdo, 
+		  ma con te è stato naturale. Magari è stato il vino a sciogliere i nodi, o forse è solo che quando due anime si riconoscono, smettono di aver bisogno di maschere.
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_08.JPG" alt="Confidenze" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">07 · Il primo bacio</span>
+                <h3>Il primo bacio</h3>
+                <p>
+                  Ripensavo a quando ti ho scritto 'non so se resisto fino al tramonto. Volevo fare la romantica, aspettare la luce perfetta, il momento da film...  
+		  e invece la verità è che non riuscivo a pensare a nient'altro se non a baciarti. Alla fine il tramonto l'abbiamo un po' anticipato: 
+		  dopo averti spostato quel ciuffo, non resistevo più.
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_09.JPG" alt="Primo bacio" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">08 · La prima volta</span>
+                <h3>La prima volta davvero nostra</h3>
+                <p>
+                  Ripensavo alla nostra prima volta... o meglio, alle nostre prime volte…
+		  Dalla foga pura fuori dal Sabir, a divorarci vicino alla macchina maledicendo quei pantaloni, fino al Foro Italico, dove mi trema ancora la voce se ripenso a come ti ho pregato di non fermarti... 
+		  Ma il vero capolavoro è stato tra gli scogli. Una serata perfetta, senza più filtri, il rumore del mare e noi, finalmente nude insieme.
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_10.JPG" alt="La prima volta" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">09 · Il primo mazzo di pollo</span>
+                <h3>Anche le cose più assurde con te diventano ricordi bellissimi</h3>
+                <p>
+                  Quando mi hai detto che non amavi i fiori, ho capito subito che meritavi qualcosa di unico... e direi che il mio mazzo di pollo ha ufficialmente confermato il mio status di fidanzata perfetta!
+		  Scherzi a parte… Amo il modo in cui ci ascoltiamo davvero, la complicità profonda che abbiamo trovato e tutti i ricordi unici che abbiamo già saputo creare, tra baci, passioni travolgenti e risate complici. 
+		  Sei speciale, e questo è solo l'inizio.
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_11.JPG" alt="Ricordo buffo" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">10 · Il primo ti amo</span>
+                <h3>Il primo “ti amo”</h3>
+                <p>
+                  Guardavo questo screenshot e sorridevo come una scema. Sorridevo al tuo 'Ok addio', al mio calo di pressione nel risponderti e a quel 'Credo di essermi innamorata anch'io'.
+		  Ma il ricordo più bello resta quello dopo a casa tua senza i tuoi. Fare l'amore per la prima volta con quella consapevolezza, e poi scappare al McDonald's perché eravamo affamate. 
+		  Ho ancora addosso la sensazione di noi due accoccolate in macchina in quel parcheggio, tra un bacio e una risata. Quando ti ho guardata negli occhi e ti ho detto 'Ti amo' dal vivo, e ho sentito il tuo... 
+		  lì ho capito che non avrei più voluto essere da nessun'altra parte. ❤️
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_12.JPG" alt="Primo ti amo" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">11 · È lei</span>
+                <h3>Sei la Gwen del mio Spiderman</h3>
+                <p>
+                  Ammetti la verità: all'inizio mi hai odiata quando ti ho praticamente costretta a guardare i film Marvel! E adesso guarda come siamo finite: tu che li ami quasi più di me.
+		  Ma la verità è che non importa quale supereroe stia salvando il mondo sullo schermo... la parte più bella in assoluto resta sempre stare lì, completamente accoccolata a te, a goderci i nostri momenti. 
+	          Amo guardare i film Marvel con te.
+
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_13.JPG" alt="È lei" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">12 · Anche le nostre tempeste</span>
+                <h3>Tutte le nostre litigate</h3>
+                <p>
+                  Abbiamo avuto le nostre tempeste, le nostre litigate, quei momenti in cui siamo sembrate così diverse da sentirci quasi incompatibili. Ma la nostra vera magia non è essere perfette o uguali, 
+		  è il modo in cui crediamo in noi ogni singolo giorno. Scegliamo di parlarci, di ascoltarci, di abbassare le difese e, alla fine, di vederci davvero per quello che siamo. Superare tutto questo 
+		  insieme ci rende solo più forti. Ti amo proprio perché siamo noi, con tutta la nostra bellissima, complicata unicità.
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_14.JPG" alt="Le nostre tempeste" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">13 · Il mancarsi</span>
+                <h3>Il mancarsi costantemente</h3>
+                <p>
+                  E poi c'è questa cosa che non passa mai: mi manchi costantemente. Non importa se abbiamo passato insieme ore o giorni interi, mi basta vederti andare via per sentire subito il vuoto. 
+		  Un attimo dopo che hai chiuso la porta, sono già lì che non vedo l'ora di riaverti tra le mie braccia. Ti amo anche per questo.
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_15.JPG" alt="La mancanza" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">14 · Il primo viaggio insieme</span>
+                <h3>Il primo viaggio insieme</h3>
+                <p>
+                  Ripensavo al nostro primo viaggio insieme a San Vito lo Capo... Che scommessa è stata arrivare lì! Stare lontane per due mesi proprio all'inizio della nostra storia è stata una tortura, 
+	          ma ritrovarci lì, con quel mare, ha ripagato ogni singolo secondo di attesa.... il nostro primo viaggio. 🌊☀️
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_16.JPG" alt="Primo viaggio" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">15 · E tutti quelli che verranno</span>
+                <h3>Il bello è che questo è solo l’inizio</h3>
+                <p>
+                  Mi emoziona pensare non solo a quello che siamo state, ma a tutto quello che ancora saremo.
+                  Ai viaggi che faremo, ai giorni normali che diventeranno speciali, ai sogni che prenderanno forma,
+                  e a tutto quello che il futuro avrà da dirci se continueremo a guardarci così.
+		  Poi c'è stata Roma... girare per quelle strade insieme, stringerti la mano tra la storia e la bellezza di quella città, mi ha fatto capire quante cose meravigliose dobbiamo 
+		  ancora scoprire e a quanti posti visiteremo insieme. Prossima tappa?
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_17.JPG" alt="Il futuro" />
+              </div>
+            </article>
+
+            <article class="moment">
+              <div class="moment-card">
+                <span class="moment-date">16 · Una vita con te</span>
+                <h3>Il primo “voglio una vita con te”</h3>
+                <p>
+                  E allora eccoci qui a festeggiare il nostro primo anno insieme, e pronte per la prossima tappa... la più bella in assoluto: il nostro futuro.
+		  Tra pochissimo partiremo e daremo ufficialmente inizio alla nostra vita insieme, alla nostra convivenza. Se ripenso a noi due mesi lontane all'inizio, mi sembra incredibile 
+		  pensare che presto non ci sarà più nessuna porta da chiudere per andare via, nessun treno da prendere, ma solo una chiave da girare nella toppa della nostra casa. 
+		  Non vedo l'ora di iniziare questo capitolo con te, di litigare per i piatti da lavare (di litigare per tutto), di guardarci i film Marvel sul nostro divano e di svegliarmi 
+		  ogni mattina sapendo che siamo finalmente dove dobbiamo essere. Ti amo, Bimba mia… 
+		  Maybe we could make this home🏠❤️
+                </p>
+              </div>
+              <div class="moment-image">
+                <img src="IMG_18.JPG" alt="Vita con te" />
+              </div>
+            </article>
+          </div>
+
+          <div class="timeline-controls">
+            <button class="back-button" id="backBtn" disabled>Indietro</button>
+            <span class="progress-text" id="progressText">1 / 16</span>
+            <button class="next-button" id="nextBtn">Continua ❤️</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title reveal">Cose che amo di te</h2>
+          <p class="section-subtitle reveal">
+            Ci sono cose di te che amo in modo così naturale da sembrarmi ormai parte di me.
+            Non sono solo grandi gesti o parole importanti, ma dettagli, modi di fare, piccole cose che nel tempo hanno reso te insostituibile.
+          </p>
+
+          <div class="love-layout reveal">
+            <div class="love-buttons" id="loveButtons"></div>
+
+            <div class="love-panel">
+              <div class="small">clicca e scopri</div>
+              <h3 id="loveTitle">Ci sono cose che noto ogni giorno.</h3>
+              <p id="loveText">
+                Premi uno dei pulsanti accanto. Ogni click farà comparire un pensiero diverso.
+                Qui è importante essere specifici: meno frasi generiche, più dettagli veri.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title reveal">Le nostre foto sparse</h2>
+          <p class="section-subtitle reveal">
+            Non tutti i ricordi hanno bisogno di essere raccontati con tante parole.
+            Alcuni vivono semplicemente in una foto, in un sorriso, in un dettaglio preso per caso.
+            Premi il pulsante e lascia che sia una nostra immagine a parlare.
+          </p>
+
+          <div class="surprise-grid reveal">
+            <div class="surprise-box">
+              <h3>365 Giorni di noi</h3>
+              <p>
+                Ogni click farà apparire una foto: non per ripetere quello che abbiamo già raccontato,
+                ma per lasciare spazio anche a tutti quei frammenti piccoli, spontanei e bellissimi che fanno parte di noi.
+              </p>
+              <button class="btn" id="randomMemoryBtn">Mostrami una foto ❤️</button>
+              <div class="memory-output photo-random-output" id="memoryOutput" style="margin-top: 20px;">
+                <span class="tag">Foto casuale</span>
+                <h4>Sto aspettando il tuo click</h4>
+              </div>
+            </div>
+
+            <div class="music-card">
+              <h3>Your name is in neon light in the sky when darkness surrounds us</h3>
+              <p>
+                La canzone parte automaticamente appena apri la pagina.
+                Se vuoi fermarla, puoi usare il pulsante qui sotto.
+              </p>
+              <button class="btn secondary" id="musicToggle">Disattiva musica</button>
+              <audio id="bgMusic" loop autoplay preload="auto" playsinline>
+                <source src="mgk_cliche.mp3" type="audio/mpeg" />
+              </audio>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="finale" class="section">
+        <div class="container">
+          <div class="final-card reveal">
+            <div class="eyebrow">Finale</div>
+            <h2>Bimba, voglio rendere questa casa nostra…<br />ovunque ci porterà la vita.</h2>
+            <p>
+              Perché se c’è una cosa che questo anno mi ha insegnato, è che casa non è un luogo preciso.
+              Casa, per me, sei tu. Sei tu nei giorni belli, in quelli difficili, nelle risate, nelle litigate,
+              nella mancanza, nei ritorni, nei sogni che abbiamo già iniziato a costruire. Sei tu la mia famiglia,
+              il mio posto sicuro, il mio amore più grande. Ti amo Arianna. Buon primo anniversario.
+            </p>
+            <div class="final-video-frame">
+              <video controls playsinline preload="metadata">
+                <source src="VIDEO_FINALE.mp4" type="video/mp4" />
+                Il tuo browser non supporta la riproduzione video.
+              </video>
+            </div>
+            <div class="final-heart">♥</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+
+    <!--
+      DESCRIZIONI FOTO RANDOM
+      Sostituisci le 46 righe qui sotto con le tue 46 descrizioni.
+      La riga 1 andrà su RANDOM_01.JPG, la riga 2 su RANDOM_02.JPG, ecc.
+      Puoi lasciare descrizioni anche su più righe: il codice le leggerà correttamente.
+    -->
+    <script type="text/plain" id="randomDescriptions">
+1. "Ed io che invece vorrei solo averti più vicino / Cascare nei tuoi occhi e poi vedere se cammino / Che sono grandi come i dubbi che mi fanno male / Ma sono belli come il sole dopo un temporale."
+2. "L’amore, se in fondo ci pensi, è l’unico appiglio in un mondo di mostri."
+3. "Vorrei che ti guardassi con i miei occhi, vorrei che ti ascoltassi con i miei sogni."
+4. "Vieni nel mio cuore, che c’è un posto migliore per noi."
+5. "E vorrei essere per te quel posto dove corri quando il mondo ti fa male."
+6. "Ma il sentimento era già un po' troppo denso / E son restato / Chissà, chissà chi sei / Chissà che sarai / Chissà che sarà di noi / Lo scopriremo solo vivendo / Comunque adesso ho un po' paura / Ora che quest'avventura / Sta diventando una storia vera."
+7. "Ho bisogno di amarti / Ma non come vuoi tu / Completare i tuoi gesti / Spegnerti la TV / Questo senso di niente / Passa se ci sei tu / Quanto costa averti dentro / È come l'immenso, è lo stesso e il diverso / Tutto questo sei tu."
+8. "I got six ways to say that I fell in love with you at first sight. / I wish that I could frame the way you look at me with those eyes."
+9. "Tell me, would you wait for me? Baby, I'm a rolling stone. / I liked that you liked me. I kissed your lips, you got good taste. / I liked that you liked me. I can close my eyes and draw your face."
+10."Your name is in neon light in the sky when darkness surrounds us."
+11."E, sai, se ti guardassi con i miei di occhi non te ne andresti mai."
+12."Perché l'amore ti capita anche quando non lo vuoi / Ed è da questa domenica che è capitato a noi / No, io no / Che mi passa per la testa non lo so / E no, io no / Finché non ti addormenti tu non dormirò / Non me l'aspettavo mica che poi mi innamoravo."
+13."I versi d'amore mi fanno sentire uno stupido / Finisce che prendo a cazzotti le porte / Dici 'Sei pazzo', ma pazzo di te."
+14."Il profumo che indossi, la pelle di seta, i capelli mossi / È un misto di come tu sei o come, più o meno, vorrei che tu fossi / Coi miei paradossi, t'invito nei miei desideri nascosti / Ti vedo nel buio nuda, in infradito, ho gli infrarossi / Dormi, che sono pazzo di te / E non è strano che ti voglio ad ogni costo."
+15."L'amore è tutto quello che ci pare / L'amore avere armi senza fare male."
+16."Ma mi fa ridere quando mi guardi / Mentre parli a raffica e ti scende la neve dagli occhi."
+17."Io che basta pensarti e già mi manca il respiro"
+18."Vorrei donare il tuo sorriso alla luna perché di notte chi la guarda possa pensare a te."
+19."I have died every day waiting for you, darling, don't be afraid. I have loved you for a thousand years."
+20."Wise men say only fools rush in, but I can't help falling in love with you."
+21."You're the closest to heaven that I'll ever be."
+22."And when you smile, the whole world stops and stares for a while."
+23."Ven a mi te cuidare, te besare esos ojitos tan dulces y calmare la pena que tu alma lleva."
+24."Y te amare como nadie en la terra te amo."
+25."I'm in love with your body... We push and pull like a magnet do."
+26."E scusami se rido, dall'imbarazzo cedo / Ti guardo fisso e tremo / All'idea di averti accanto e sentirmi tua soltanto."
+27."And I remember being younger, and my mother told me truth: / Find someone who grows flowers in the darkest parts of you. / Take heed when things get hard and don't you ever turn around. / You'll find someone, someday, somewhere that'll grow you to the clouds, oh."
+28."Hai pianto troppe lacrime per questo tuo imbecille, / Ma proverò a rimettertele dentro le pupille."
+29."And when you smile, / The whole world stops and stares for a while, / 'Cause, girl, you're amazing / Just the way you are."
+30."Sento una musica ogni volta / Che ti sto accanto quando ti perdo / E poi ci ripenso / Come se fosse la fine del mondo. / No, non avere paura / Quando vai a dormire sola, / Se la stanza sembra vuota / E se senti il cuore in gola. / Non avere paura, / Mi prenderò cura, io, di te."
+31."Oh, darling, just kiss me slow, / Your heart is all I own / And in your eyes, you're holding mine."
+32."Volevo dirti tante cose, ma non so da dove / Iniziare, ti vorrei viziare / Farti scivolare addosso questo mondo infame, / Mettermi fra te e cento lame. / Mentre cerco il mare / Penso non avrebbe senso fare un tuffo immenso / Se non ci sei tu a nuotare. / E tu che sai colmare, / E tu che sai calmare."
+33."Per una famiglia basta già un due, / Sai che c'è? Baby, tu invecchia con me. / Vinciamo questi anni d′oro, / Non arriviamo mai primi io e te, / Ma insieme siamo da podio."
+34."Proverò a pensarti mentre mi sorridi: / La capacità che hai di rasserenare."
+35."E non esiste paesaggio più bello della tua schiena, / Quella strada che porta fino alla bocca tua. / Non esiste esperienza più mistica e più terrena / Di ballare abbracciato con te al chiaro di luna."
+36."Non conosco felicità più grande che stare con te tutto il tempo, senza interruzione, senza fine."
+37."Non ho controllo sul tempo che mi è concesso in questa vita, ma ho il potere di riempire di significato ogni momento con te."
+38."Ti amo con un amore che è più dell'amore."
+39."Perché tutto di me ama tutto di te: / Amo le tue curve e tutti i tuoi bordi, / Tutte le tue perfette imperfezioni. / Dai il tuo tutto a me, io darò il mio tutto a te, / Sei la mia fine e il mio inizio / Anche quando perdo, sto vincendo."
+40."Ti solleverò dai dolori e dai tuoi sbalzi d'umore, / Dalle ossessioni delle tue manie. / Supererò le correnti gravitazionali, / Lo spazio e la luce per non farti invecchiare."
+41."Sei il primo mio pensiero che al mattino mi sveglia, l’ultimo desiderio che la notte mi culla."
+42."È bella la vita ora che il mondo mi ha dato te."
+43."Meno male che esisti, / Ché sennò ti avrei dovuto inventare da zero / Come fanno gli artisti. / E invece sei qua, sei vera, uh, / Che ti posso toccare, baciare, abbracciare, / Amarti e litigare, uoh, oh, oh."
+44."Io sono qui per amarti, per stringerti fra le braccia, per proteggerti. Sono qui per imparare da te e ricevere in cambio il tuo amore. Sono qui perché non c’è nessun altro luogo in cui vorrei essere."
+45."C’è un posto nel mondo dove il cuore batte forte, dove rimani senza fiato per quanta emozione provi; dove il tempo si ferma e non hai più l’età. Quel posto è tra le tue braccia in cui non invecchia il cuore, mentre la mente non smette mai di sognare."
+46."Mi piace guardarti quando nessuno ti vede, mi piace la persona che sei solo con me."
+    </script>
+
+    <script>
+      const moments = document.querySelectorAll('.moment');
+      const nextBtn = document.getElementById('nextBtn');
+      const backBtn = document.getElementById('backBtn');
+      const progressText = document.getElementById('progressText');
+      let currentMoment = 0;
+
+      function showMoment(index) {
+        moments.forEach((moment) => moment.classList.remove('active'));
+        moments[index].classList.add('active');
+        progressText.textContent = `${index + 1} / ${moments.length}`;
+        backBtn.disabled = index === 0;
+        nextBtn.textContent = index === moments.length - 1 ? 'Vai avanti ❤️' : 'Continua ❤️';
+        moments[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      nextBtn.addEventListener('click', () => {
+        if (currentMoment < moments.length - 1) {
+          currentMoment++;
+          showMoment(currentMoment);
+        } else {
+          document.querySelector('.section:nth-of-type(2)').scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      backBtn.addEventListener('click', () => {
+        if (currentMoment > 0) {
+          currentMoment--;
+          showMoment(currentMoment);
+        }
+      });
+
+      const loveItems = [
+        {
+          label: 'Il tuo modo di esserci',
+          title: 'Il tuo modo di esserci',
+          text: 'Amo il modo in cui sai starmi vicino e farmi sentire al sicuro, anche quando tutto il resto pesa. Non solo nei momenti belli, ma soprattutto in quelli difficili. Riesci a farmi sentire meno 			sola senza nemmeno accorgertene. Sapere che posso contare su di te è una delle certezze più belle che la vita mi abbia regalato. E amo quando mi compri i Togo per farmi felice'
+        },
+        {
+          label: 'La tua risata',
+          title: 'La tua risata vera',
+          text: 'La tua risata è una delle cose che amo di più. C’è qualcosa nel modo in cui illumina il tuo viso che riesce sempre a migliorare la mia giornata. Potrei ascoltarla per ore senza stancarmi mai. 		Mi fa pensare a una frase di una canzone che dice: “Non noto la pettinatura ed il vestito, ma muoio per il tuo sorriso.” E ogni volta che ti vedo ridere, capisco perfettamente cosa significa. '
+        },
+        {
+          label: 'I tuoi occhi',
+          title: 'Il modo in cui mi guardi',
+          text: 'I tuoi occhi sono il posto in cui mi perdo più volentieri. Riescono a raccontarmi cose che le parole non saprebbero spiegare, sai benissimo il modo in cui riesco a leggere ogni tuo pensiero 			ogni volta. '
+        },
+        {
+          label: 'La tua dolcezza',
+          title: 'La tua dolcezza',
+          text: 'Sei stronza? Assolutamente sì! anche un po\' acida a volte, ma la tua dolcezza è lì e la vedo. E mi conquista ogni giorno. Si nasconde nei piccoli gesti, nelle attenzioni che hai per me e nel 		  modo in cui riesci a prenderti cura delle persone che ami.'
+        },
+        {
+          label: 'Come mi calmi',
+          title: 'Il modo in cui riesci a calmarmi',
+          text: 'Ci sono giorni in cui ho la testa piena di pensieri e il cuore un po’ più pesante del solito. Poi arrivi tu, ti guardo, mi guardi, ti abbraccio, e tutto sembra più semplice. Hai il dono di 				riportarmi serenità anche quando non riesco a trovarla da sola anche quando ho mille pensieri, riesci a rimettermi il cuore in ordine senza neanche accorgertene.'
+        },
+        {
+          label: 'Sei piena di vita',
+          title: 'Sei piena di vita',
+          text: 'Amo il fatto che tu sia piena di vita. Lo vedo nella passione che metti in ciò che ami, nella forza silenziosa con cui affronti le difficoltà e nella sensibilità con cui vivi ogni emozione. È 		  una luce che porti dentro di te quando parli di ciò che ami. Nella passione dei piccoli gesti.  '
+        },
+        {
+          label: 'La nostra complicità',
+          title: 'La nostra complicità',
+          text: 'La nostra complicità è una delle cose che sento più nostre. Basta uno sguardo per capirci, una frase a metà per sapere cosa stiamo pensando. È quella sensazione meravigliosa di avere accanto 		  qualcuno che mi comprende anche quando non riesco a spiegarmi. '
+        },
+        {
+          label: 'Come mi fai sentire',
+          title: 'Come mi fai sentire quando sono con te',
+          text: 'Con te mi sento amata, capita e al sicuro. Mi fai sentire importante senza bisogno di grandi gesti, semplicemente essendo te stesso. Mi fai sentire la versione migliore di me'
+        },
+        {
+          label: 'La tua forza',
+          title: 'La tua forza',
+          text: 'Amo la tua forza, soprattutto quella che spesso non mostri. Quella che ti permette di andare avanti anche quando le cose non sono facili. Mi ispira, mi rassicura e mi ricorda ogni giorno 			 quanto sei capace di affrontare qualsiasi cosa. '
+        },
+        {
+          label: 'Il fatto che sei tu',
+          title: 'Il fatto che sei tu',
+          text: 'Tra tutte le cose che amo di te, forse la più importante è semplicemente questa: il fatto che sei tu. Con i tuoi pregi, i tuoi difetti, le tue abitudini e il tuo modo unico di vedere il mondo.Non vorrei una versione diversa di te, perché è proprio la persona che sei che mi ha fatto innamorare. ❤'
+        }
+      ];
+
+      function parseRandomDescriptions() {
+        const rawText = document.getElementById('randomDescriptions')?.textContent || '';
+
+        const matches = [...rawText.matchAll(/(?:^|\n)\s*(\d{1,2})\.\s*/g)];
+        const descriptions = Array(46).fill('');
+
+        matches.forEach((match, index) => {
+          const number = Number(match[1]);
+          const contentStart = match.index + match[0].length;
+          const contentEnd = index + 1 < matches.length ? matches[index + 1].index : rawText.length;
+          const content = rawText
+            .slice(contentStart, contentEnd)
+            .trim()
+            .replace(/^["“”«»]+|["“”«»]+$/g, '');
+
+          if (number >= 1 && number <= 46) {
+            descriptions[number - 1] = content;
+          }
+        });
+
+        return descriptions;
+      }
+
+      const randomDescriptions = parseRandomDescriptions();
+
+      const memoryItems = Array.from({ length: 46 }, (_, index) => {
+        const photoNumber = String(index + 1).padStart(2, '0');
+        const description = randomDescriptions[index] || `Descrizione foto ${photoNumber}`;
+
+        return {
+          title: `Foto ${photoNumber}`,
+          text: description,
+          image: `RANDOM_${photoNumber}.JPG`
+        };
+      });
+
+      const loveButtons = document.getElementById('loveButtons');
+      const loveTitle = document.getElementById('loveTitle');
+      const loveText = document.getElementById('loveText');
+      const randomMemoryBtn = document.getElementById('randomMemoryBtn');
+      const memoryOutput = document.getElementById('memoryOutput');
+      const musicToggle = document.getElementById('musicToggle');
+      const bgMusic = document.getElementById('bgMusic');
+
+      function renderLoveButtons() {
+        loveItems.forEach((item, index) => {
+          const button = document.createElement('button');
+          button.className = 'love-btn';
+          button.textContent = item.label;
+          button.addEventListener('click', () => {
+            document.querySelectorAll('.love-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            loveTitle.textContent = item.title;
+            loveText.textContent = item.text;
+          });
+
+          if (index === 0) {
+            button.classList.add('active');
+            loveTitle.textContent = item.title;
+            loveText.textContent = item.text;
+          }
+
+          loveButtons.appendChild(button);
+        });
+      }
+
+      let lastMemoryIndex = -1;
+
+      function showRandomMemory() {
+        let randomIndex = Math.floor(Math.random() * memoryItems.length);
+
+        if (memoryItems.length > 1) {
+          while (randomIndex === lastMemoryIndex) {
+            randomIndex = Math.floor(Math.random() * memoryItems.length);
+          }
+        }
+
+        lastMemoryIndex = randomIndex;
+        const item = memoryItems[randomIndex];
+
+        memoryOutput.innerHTML = `
+          <span class="tag">Foto casuale</span>
+          <h4>${item.title}</h4>
+          <p>${item.text}</p>
+          <div class="memory-photo-frame">
+            <img class="memory-image" src="${item.image}" alt="Foto speciale ${randomIndex + 1}" />
+          </div>
+        `;
+      }
+
+      let isMusicPlaying = false;
+
+      function startMusic() {
+        if (!bgMusic) return;
+
+        bgMusic.volume = 0.65;
+
+        bgMusic.play()
+          .then(() => {
+            isMusicPlaying = true;
+            musicToggle.textContent = 'Disattiva musica';
+          })
+          .catch(() => {
+            isMusicPlaying = false;
+            musicToggle.textContent = 'Avvia musica';
+          });
+      }
+
+      function toggleMusic() {
+        if (!bgMusic) return;
+
+        if (isMusicPlaying) {
+          bgMusic.pause();
+          isMusicPlaying = false;
+          musicToggle.textContent = 'Riattiva musica';
+        } else {
+          bgMusic.play()
+            .then(() => {
+              isMusicPlaying = true;
+              musicToggle.textContent = 'Disattiva musica';
+            })
+            .catch(() => {
+              alert('Controlla che il file mgk_cliche.mp3 sia nella stessa cartella del sito.');
+            });
+        }
+      }
+
+      function startMusicAfterFirstInteraction() {
+        if (!isMusicPlaying) {
+          startMusic();
+        }
+      }
+
+      window.addEventListener('load', startMusic);
+      document.addEventListener('click', startMusicAfterFirstInteraction, { once: true });
+      document.addEventListener('touchstart', startMusicAfterFirstInteraction, { once: true });
+
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      renderLoveButtons();
+      randomMemoryBtn.addEventListener('click', showRandomMemory);
+      musicToggle.addEventListener('click', toggleMusic);
+    </script>
+  </body>
+</html>
