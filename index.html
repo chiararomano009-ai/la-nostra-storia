@@ -253,13 +253,19 @@
       .moment-image {
         overflow: hidden;
         min-height: 360px;
+        height: clamp(360px, 55vh, 540px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 250, 247, 0.92);
       }
 
       .moment-image img {
         width: 100%;
         height: 100%;
-        min-height: 360px;
-        object-fit: cover;
+        min-height: 0;
+        object-fit: contain;
+        object-position: center;
       }
 
       .timeline-controls {
@@ -580,11 +586,19 @@
           padding: 22px;
         }
 
-        .timeline-center-photo img,
-        .moment-image,
-        .moment-image img {
+        .timeline-center-photo img {
           min-height: 320px;
           height: 320px;
+        }
+
+        .moment-image {
+          min-height: 390px;
+          height: 390px;
+        }
+
+        .moment-image img {
+          min-height: 0;
+          height: 100%;
         }
 
         .memory-photo-frame {
@@ -1006,7 +1020,7 @@
               </p>
               <button class="btn secondary" id="musicToggle">Disattiva musica</button>
               <audio id="bgMusic" loop autoplay preload="auto" playsinline>
-                <source src="mgk_cliche.mp3" type="audio/mpeg" />
+                <source src="mgk_cliché.mp3" type="audio/mpeg" />
               </audio>
             </div>
           </div>
@@ -1299,7 +1313,7 @@
               musicToggle.textContent = 'Disattiva musica';
             })
             .catch(() => {
-              alert('Controlla che il file mgk_cliche.mp3 sia nella stessa cartella del sito.');
+              alert('Controlla che il file mgk_cliché.mp3 sia nella stessa cartella del sito.');
             });
         }
       }
